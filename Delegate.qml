@@ -16,7 +16,6 @@ Item {
     signal exitSessionMenu(bool isVisible)
 
     onDialogBoolChanged: {
-        console.log("esyas en una preba", dialogBool )
         sessionMenu.visible = dialogBool
     }
 
@@ -68,7 +67,7 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: sessionModel.count > 1 ? (parent.width - width - mesh.width - Kirigami.Units.mediumSpacing)/2 : parent.width - width
                 user: nameUser
-                session: sessionModel.lastIndex
+                session: listSession.currentIndex
                 width: sessionModel.count > 1 ? 225 : 252
                 height: 28
                 visible: active
@@ -91,9 +90,6 @@ Item {
                     onClicked: {
                             dialogBool = !dialogBool
                             exitSessionMenu(dialogBool)
-
-                        //dialogAveilable = !dialogAveilable
-
                     }
                 }
             }
@@ -125,10 +121,10 @@ Item {
                             id: element
                             width: listSession.width
                             text: model.name
-                            checked: model.index = sessionModel.lastIndex
+                            checked: listSession.currentIndex === model.index
                             onCheckedChanged: {
-                                if (Checked){
-                                    sessionModel.lastIndex = model.index
+                                if (checked){
+                                    listSession.currentIndex = model.index
                                 }
                             }
                         }
