@@ -6,7 +6,7 @@ import org.kde.kirigami as Kirigami
 Item {
     property string nameUser: "Adolfo"
     property bool active: true
-    property string img: Qt.resolvedUrl("banner.jpg")
+    property string img: Qt.resolvedUrl("faces/fakeWallpaper4.webp")
     property bool isCurrent: true
     property color colorBackground: "#FACE64"
     property color colorDegrad: "#F9C442"
@@ -18,6 +18,7 @@ Item {
     onExitSessionMenu: {
         sessionMenu.visible = false
     }
+
 
     Kirigami.Card {
         anchors.fill: parent

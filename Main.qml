@@ -10,10 +10,14 @@ Rectangle {
     id: root
     width: 640
     height: 480
+
     LayoutMirroring.enabled: Qt.locale().textDirection === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
+
     property bool dialogVisible: true
+
     signal exitDialogs
+
     TextConstants {
         id: textConstants
     }
@@ -23,6 +27,28 @@ Rectangle {
         id: inputPanel
         property bool keyboardActive: false
         source: "components/VirtualKeyboard.qml"
+    }
+
+    ListModel{
+        id: faces
+        ListElement {
+            url: "faces/fakeWallpaper0.webp"
+        }
+        ListElement {
+            url: "faces/fakeWallpaper1.webp"
+        }
+        ListElement {
+            url: "faces/fakeWallpaper2.webp"
+        }
+        ListElement {
+            url: "faces/fakeWallpaper3.webp"
+        }
+        ListElement {
+            url: "faces/fakeWallpaper4.webp"
+        }
+        ListElement {
+            url: "faces/fakeWallpaper5.webp"
+        }
     }
 
     onExitDialogs: {
@@ -166,7 +192,7 @@ Rectangle {
             colorBackground: colorModel.get(colorModel.count < model.index ? model.index % colorModel.count : model.index).light
             colorDegrad: colorModel.get(colorModel.count < model.index ? model.index % colorModel.count : model.index).normal
             nameUser: model.name
-            img: model.icon
+            img: model.icon || Qt.resolvedUrl(faces[model.index % 5]).url
             isCurrent: false
             dialogAveilable: dialogVisible
             onExitSessionMenu: {
