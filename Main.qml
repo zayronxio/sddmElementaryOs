@@ -17,12 +17,8 @@ Rectangle {
     property bool dialogVisible: false
     property int currentElement
     property var faces: ["faces/fakeWallpaper0.webp", "faces/fakeWallpaper1.webp", "faces/fakeWallpaper2.webp", "faces/fakeWallpaper3.webp", "faces/fakeWallpaper4.webp", "faces/fakeWallpaper5.webp"]
-    signal exitDialogs
 
-    function checkWordInString(string, word) {
-        var regex = new RegExp(word, "i")
-        return regex.test(string)
-    }
+    signal exitDialogs
 
     TextConstants {
         id: textConstants
@@ -42,21 +38,6 @@ Rectangle {
         panel.clickExit()
     }
 
-    Connections {
-        target: sddm
-        onLoginSucceeded: {
-
-        }
-        onLoginFailed: {
-            password.placeholderText = textConstants.loginFailed
-            password.placeholderTextColor = "white"
-            password.text = ""
-            password.focus = false
-            errorMsgContainer.visible = true
-            tooltip.showTooltip("This is a tooltip message!")
-        }
-    }
-
     Image {
         id: wallpaper
         anchors.fill: parent
@@ -65,25 +46,6 @@ Rectangle {
         Binding on source {
             when: config.background !== undefined
             value: config.background
-        }
-    }
-    StackView {
-        id: mainStack
-        anchors.centerIn: parent
-        height: parent.height / 2
-        width: parent.width / 3
-
-        focus: false //StackView is an implicit focus scope, so we need to give this focus so the item inside will have it
-
-        Timer {
-            //SDDM has a bug in 0.13 where even though we set the focus on the right item within the window, the window doesn't have focus
-            //it is fixed in 6d5b36b28907b16280ff78995fef764bb0c573db which will be 0.14
-            //we need to call "window->activate()" *After* it's been shown. We can't control that in QML so we use a shoddy timer
-            //it's been this way for all Plasma 5.x without a huge problem
-            running: true
-            repeat: false
-            interval: 200
-            onTriggered: password.forceActiveFocus()
         }
     }
 
@@ -181,6 +143,7 @@ Rectangle {
             nameUser: model.name
             img: (model.icon).includes("face.icon") ? Qt.resolvedUrl(faces[model.index % 5]) : model.icon
             isCurrent: model.index === model.lastUser
+            isFocused: carouselView.currentIndex === model.index
             dialogBool: !dialogVisible ? false : dialogAveilable
 
             property bool dialogAveilable: false

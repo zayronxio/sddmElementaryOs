@@ -11,12 +11,23 @@ Item {
     property color colorBackground: "#FACE64"
     property color colorDegrad: "#F9C442"
     property bool dialogBool: false
+    property bool isFocused: false
 
     signal destroyDialogs
+
     signal exitSessionMenu(bool isVisible)
+
     signal error()
+
     onDialogBoolChanged: {
         sessionMenu.visible = dialogBool
+    }
+
+    Component.onCompleted: {
+        if(isFocused) {
+            Qt.callLater(() => password.forceActiveFocus())
+        }
+
     }
 
     Kirigami.Card {
