@@ -14,7 +14,7 @@ Item {
 
     signal destroyDialogs
     signal exitSessionMenu(bool isVisible)
-
+    signal error()
     onDialogBoolChanged: {
         sessionMenu.visible = dialogBool
     }
@@ -73,6 +73,9 @@ Item {
                 visible: active
                 onTextChanged: {
                     destroyDialogs()
+                }
+                onLoginError: {
+                    error()
                 }
             }
 

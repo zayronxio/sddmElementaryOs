@@ -4,13 +4,23 @@ import org.kde.kirigami as Kirigami
 
 TextField {
     id: password
+
     property string user
     property string session
 
+    signal loginError
     leftPadding: 24
     topPadding: 4
     color: "#71706F"
     echoMode: TextInput.Password
+
+    Connections {
+        target: sddm
+        onLoginFailed: {
+            password.text = ""
+            loginError()
+        }
+    }
 
     onAccepted: sddm.login(user, password.text,
                            session)

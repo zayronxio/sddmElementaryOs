@@ -230,6 +230,9 @@ Rectangle {
             onDestroyDialogs: {
                 exitDialogs()
             }
+            onError: {
+                tooltip.showTooltip("Error, please verify your password!")
+            }
 
         }
     }
