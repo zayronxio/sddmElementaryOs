@@ -3,7 +3,10 @@ import "components" as Components
 import org.kde.kirigami as Kirigami
 
 Item {
+
     signal clickExit
+
+    property int sizeHeightDailog: 0
     ListModel {
         id: power
         ListElement {
@@ -24,7 +27,7 @@ Item {
     DialogCard {
         id: powerMenu
         width: 96
-        height: 100
+        height: sizeHeightDailog + powerMenu.marginHeader + Kirigami.Units.largeSpacing*2
         visible: false
         anchors.top: panel.bottom
         anchors.left: parent.left
@@ -33,14 +36,17 @@ Item {
         Item {
             id: bg
             width: parent.width
-            height: listSession.height
-            anchors.centerIn: parent
+            height: sizeHeightDailog
+            anchors.horizontalCenter: pàrent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: (parent.height - sizeHeightDailog) - Kirigami.Units.largeSpacing*2 + Kirigami.Units.mediumSpacing
 
             ListView {
                 id: listSession
                 width: parent.width - Kirigami.Units.largeSpacing * 2
+                height: sizeHeightDailog
                 model: power
-                height: (Kirigami.Units.gridUnit *1.5) * sessionModel.count
+                //height: (Kirigami.Units.gridUnit *1.5) * sessionModel.count
                 anchors.centerIn: parent
                 interactive: false // Desactiva el scroll para que todo el contenido sea visible
 
@@ -55,7 +61,10 @@ Item {
                         text: model.name
                         level: 5
                     }
-
+                    Component.onCompleted: {
+                        sizeHeightDailog = sizeHeightDailog + text.implicitHeight
+                        parent.height = text.implicitHeight
+                    }
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {

@@ -13,6 +13,8 @@ Item {
     property bool dialogBool: false
     property bool isFocused: false
 
+    property int sizeHeightDailog: 0
+
     signal destroyDialogs
 
     signal exitSessionMenu(bool isVisible)
@@ -111,7 +113,7 @@ Item {
             DialogCard {
                 id: sessionMenu
                 width: 175
-                height: 100
+                height: sizeHeightDailog + Kirigami.Units.largeSpacing*2 + sessionMenu.marginHeader
                 visible: dialogBool
                 anchors.top: mesh.bottom
                 anchors.horizontalCenter: mesh.horizontalCenter
@@ -120,14 +122,15 @@ Item {
                     id: bg
                     width: parent.width
                     height: listSession.height
-                    anchors.centerIn: parent
+                    anchors.top: parent.top
+                    anchors.topMargin: parent.marginHeader + Kirigami.Units.largeSpacing + Kirigami.Units.mediumSpacing
 
                     ListView {
                         id: listSession
                         width: parent.width - Kirigami.Units.largeSpacing * 2
                         model: sessionModel
                         currentIndex: sessionModel.lastIndex
-                        height: (Kirigami.Units.gridUnit *1.5) * sessionModel.count
+                        height: sizeHeightDailog
                         anchors.centerIn: parent
                         interactive: false // Desactiva el scroll para que todo el contenido sea visible
 
@@ -140,6 +143,10 @@ Item {
                                 if (checked){
                                     listSession.currentIndex = model.index
                                 }
+                            }
+                            Component.onCompleted: {
+                                sizeHeightDailog = sizeHeightDailog + element.implicitHeight
+                                //parent.height = text.implicitHeight
                             }
                         }
                     }
