@@ -14,9 +14,15 @@ Rectangle {
     LayoutMirroring.enabled: Qt.locale().textDirection === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
-    property bool dialogVisible: true
-
+    property bool dialogVisible: false
+    property int currentElement
+    property var faces: ["faces/fakeWallpaper0.webp", "faces/fakeWallpaper1.webp", "faces/fakeWallpaper2.webp", "faces/fakeWallpaper3.webp", "faces/fakeWallpaper4.webp", "faces/fakeWallpaper5.webp"]
     signal exitDialogs
+
+    function checkWordInString(string, word) {
+        var regex = new RegExp(word, "i")
+        return regex.test(string)
+    }
 
     TextConstants {
         id: textConstants
@@ -29,31 +35,11 @@ Rectangle {
         source: "components/VirtualKeyboard.qml"
     }
 
-    ListModel{
-        id: faces
-        ListElement {
-            url: "faces/fakeWallpaper0.webp"
-        }
-        ListElement {
-            url: "faces/fakeWallpaper1.webp"
-        }
-        ListElement {
-            url: "faces/fakeWallpaper2.webp"
-        }
-        ListElement {
-            url: "faces/fakeWallpaper3.webp"
-        }
-        ListElement {
-            url: "faces/fakeWallpaper4.webp"
-        }
-        ListElement {
-            url: "faces/fakeWallpaper5.webp"
-        }
-    }
 
     onExitDialogs: {
-        panel.clickExit()
+        //tooltip.showTooltip("This is a tooltip message!")
         dialogVisible = false
+        panel.clickExit()
     }
 
     Connections {
@@ -192,17 +178,40 @@ Rectangle {
             colorBackground: colorModel.get(colorModel.count < model.index ? model.index % colorModel.count : model.index).light
             colorDegrad: colorModel.get(colorModel.count < model.index ? model.index % colorModel.count : model.index).normal
             nameUser: model.name
-            img: model.icon || Qt.resolvedUrl(faces[model.index % 5]).url
+            img: (model.icon).includes("face.icon") ? Qt.resolvedUrl(faces[model.index % 5]) : model.icon
             isCurrent: false
-            dialogAveilable: dialogVisible
+            dialogBool: !dialogVisible ? false : dialogAveilable
+
+            property bool dialogAveilable: false
+
             onExitSessionMenu: {
+                console.log(model.index)
+                currentElement = model.index
+                dialogAveilable = isVisible
+                dialogVisible = isVisible
                 if (isVisible) {
-                    console.log("señal trabajando",isVisible, dialogAveilable, dialogVisible)
-                    dialogVisible = isVisible
-                    dialogAveilable = dialogVisible
+                    timer.start()
+                } else {
+                    timer.stop()
                 }
 
             }
+            Timer {
+                id: timer
+                interval: 50
+                running: false
+                repeat: true
+                onTriggered: {
+                    dialogBool = !dialogVisible ? false : dialogAveilable
+                }
+            }
+
+            onDialogBoolChanged: {
+                if (!dialogBool) {
+                    timer.stop()
+                }
+            }
+
             MouseArea {
                 anchors.fill: carouselView
                 onClicked: {
@@ -223,6 +232,13 @@ Rectangle {
             }
 
         }
+    }
+
+    TooltipError {
+        id: tooltip
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: Kirigami.Units.largeSpacing*2
     }
 
 }

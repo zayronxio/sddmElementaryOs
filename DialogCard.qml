@@ -28,7 +28,6 @@ Item {
                 if (element === "center-top") {
                     return centerTop.implicitHeight
                 } else {
-                    console.log(element, " ffffff")
                     return topleft.implicitHeight
                 }
             } else {

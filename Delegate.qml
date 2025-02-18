@@ -10,15 +10,15 @@ Item {
     property bool isCurrent: true
     property color colorBackground: "#FACE64"
     property color colorDegrad: "#F9C442"
-    property bool dialogAveilable: false
+    property bool dialogBool: false
 
     signal destroyDialogs
     signal exitSessionMenu(bool isVisible)
 
-    onExitSessionMenu: {
-        sessionMenu.visible = false
+    onDialogBoolChanged: {
+        console.log("esyas en una preba", dialogBool )
+        sessionMenu.visible = dialogBool
     }
-
 
     Kirigami.Card {
         anchors.fill: parent
@@ -89,9 +89,11 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        destroyDialogs()
-                        dialogAveilable = !dialogAveilable
-                        exitSessionMenu(!dialogAveilable)
+                            dialogBool = !dialogBool
+                            exitSessionMenu(dialogBool)
+
+                        //dialogAveilable = !dialogAveilable
+
                     }
                 }
             }
@@ -100,7 +102,7 @@ Item {
                 id: sessionMenu
                 width: 175
                 height: 100
-                visible: dialogAveilable
+                visible: dialogBool
                 anchors.top: mesh.bottom
                 anchors.horizontalCenter: mesh.horizontalCenter
 
