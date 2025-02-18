@@ -53,6 +53,7 @@ Rectangle {
             password.text = ""
             password.focus = false
             errorMsgContainer.visible = true
+            tooltip.showTooltip("This is a tooltip message!")
         }
     }
 
