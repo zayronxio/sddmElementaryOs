@@ -7,9 +7,7 @@ A sleek and modern SDDM login theme inspired by the elegant design of elementary
 ## Features ✨
 
 - **Clean & Minimalist Design:** Replicates the polished look of elementary OS's login screen.
-- **Light & Dark Mode Support:** Automatically adapts to your system's theme settings.
-- **Responsive Layout:** Works flawlessly on different screen resolutions.
-- **Easy Customization:** Modify colors, background, and fonts via config files.
+- **Compatibilty:** is compatible with qt 6 and plasma 6.
 - **Smooth Animations:** Subtle transitions for a modern feel.
 
 ## Installation 🛠️
