@@ -69,4 +69,14 @@ Item {
         color: "#80000000"
     }
 
+    Timer {
+        interval: 1000
+        running: true
+        repeat: true
+        onTriggered: {
+            textDate = abbr(getDate("d")) + " " + abbr(getDate("m")) + " " + Qt.formatDateTime(new Date(), "d");
+            time = Qt.formatDateTime(new Date(), "h:mm");
+        }
+    }
+
 }
