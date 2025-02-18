@@ -180,13 +180,12 @@ Rectangle {
             colorDegrad: colorModel.get(colorModel.count < model.index ? model.index % colorModel.count : model.index).normal
             nameUser: model.name
             img: (model.icon).includes("face.icon") ? Qt.resolvedUrl(faces[model.index % 5]) : model.icon
-            isCurrent: false
+            isCurrent: model.index === model.lastUser
             dialogBool: !dialogVisible ? false : dialogAveilable
 
             property bool dialogAveilable: false
 
             onExitSessionMenu: {
-                console.log(model.index)
                 currentElement = model.index
                 dialogAveilable = isVisible
                 dialogVisible = isVisible
