@@ -54,12 +54,13 @@ Item {
         id: conteiner
         height: parent.height
         width: logo.width + text.implicitWidth
-        spacing: 2
+        spacing: 4
 
         Kirigami.Heading {
             id: text
             width: parent.width - logo.width - 2
             height: parent.height
+            color: "white"
             verticalAlignment: Text.AlignVCenter
             text: percent + "%"
             level: 5
