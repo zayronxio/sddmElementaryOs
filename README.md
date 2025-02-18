@@ -1,8 +1,9 @@
 # elementary SDDM Theme 🚀
 
-A sleek and modern SDDM login theme inspired by the elegant design of elementary OS's greeter. Bring the clean and user-friendly look of elementary OS to your SDDM login screen!
+A sleek and modern SDDM login theme inspired by the elegant design of elementary OS's greeter. Bring the clean and user-friendly look of elementary OS to your SDDM login screen!.
+sddm does not have in its API the possibility of obtaining the wallpaper of each user and as a result of this a more similar imitation is not possible
 
-![SDDM Theme Preview](screenshots/preview.png) <!-- You can add your own screenshot here -->
+![SDDM Theme Preview](https://raw.githubusercontent.com/zayronxio/sddmElementaryOs/refs/heads/main/preview.avif) <!-- You can add your own screenshot here -->
 
 ## Features ✨
 
