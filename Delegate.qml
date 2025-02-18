@@ -15,6 +15,11 @@ Item {
 
     property int sizeHeightDailog: 0
 
+    FontLoader {
+        id: roboto
+        source: "fonts/Roboto-Light.ttf"
+    }
+
     signal destroyDialogs
 
     signal exitSessionMenu(bool isVisible)
@@ -70,6 +75,9 @@ Item {
                 anchors.top: parent.top
                 anchors.topMargin: (parent.width*.26)/2 + Kirigami.Units.largeSpacing
                 font.pointSize: 16
+                font.family: roboto.name
+                font.weight: Font.Normal
+                //color: "red"
                 horizontalAlignment:  Text.AlignHCenter
                 text: nameUser
             }
@@ -138,6 +146,8 @@ Item {
                             id: element
                             width: listSession.width
                             text: model.name
+                            font.family: roboto.name
+                            font.weight: Font.Medium
                             checked: listSession.currentIndex === model.index
                             onCheckedChanged: {
                                 if (checked){

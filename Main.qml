@@ -52,6 +52,8 @@ Rectangle {
     Clock {
         width: parent.width
         height: 150
+        anchors.top: parent.top
+        anchors.topMargin: 32
     }
     MouseArea {
         anchors.fill: parent

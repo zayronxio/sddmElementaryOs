@@ -62,7 +62,6 @@ Item {
             height: parent.height
             verticalAlignment: Text.AlignVCenter
             text: percent + "%"
-            color: "white"
             level: 5
             //font.pixelSize: Kirigami.Theme.defaultFont.pointSize
         }

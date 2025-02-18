@@ -19,6 +19,10 @@ Item {
             name: "Sleep"
         }
     }
+    FontLoader {
+        id: roboto
+        source: "fonts/Roboto-Light.ttf"
+    }
 
     onClickExit: {
         powerMenu.visible = false
@@ -57,6 +61,8 @@ Item {
                         id: text
                         width: parent.width
                         height: parent.height
+                        font.family: roboto.name
+                        font.weight: Font.Medium
                         verticalAlignment: Text.AlignVCenter
                         text: model.name
                         level: 5
